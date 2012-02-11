@@ -23,6 +23,7 @@ public class RunnerActivity extends MapActivity {
 	RadiusOverlay piazza;
 	RadiusOverlay colosseo;
 	RadiusOverlay romolo;
+	//RadiusOverlay arr[];
 	PendingIntent mPendingTermini;
 	PendingIntent mPendingPiazza;
 	PendingIntent mPendingColosseo;
@@ -56,19 +57,23 @@ public class RunnerActivity extends MapActivity {
         
         gptermini = new GeoPoint(41902022, 12500882);
         termini = new RadiusOverlay(gptermini, 400, Color.BLUE);
+        //arr[1]=termini;
         mapView.getOverlays().add(termini);
         
         gppiazza = new GeoPoint(41902622, 12495482);
         piazza = new RadiusOverlay(gppiazza, 300, Color.RED);
+        //arr[2]=piazza;
         mapView.getOverlays().add(piazza);
         
         gpcolosseo = new GeoPoint(41890310, 12492410);
         colosseo = new RadiusOverlay(gpcolosseo, 500, Color.GREEN);
         mapView.getOverlays().add(colosseo);
+        //arr[3]=colosseo;
         
         gpromolo = new GeoPoint(41890492, 12484823);
         romolo = new RadiusOverlay(gpromolo, 450, Color.YELLOW);
         mapView.getOverlays().add(romolo);
+        //arr[4]=romolo;
         
         
     }
@@ -87,9 +92,9 @@ public class RunnerActivity extends MapActivity {
 		Intent intentRomolo = new Intent("pdm.test.mappe");
 		
         intentTermini.putExtra("overlay", 1);
-        intentPiazza.putExtra("overlay", 1);
-        intentColosseo.putExtra("overlay", 1);
-        intentRomolo.putExtra("overlay", 1);
+        intentPiazza.putExtra("overlay", 2);
+        intentColosseo.putExtra("overlay", 3);
+        intentRomolo.putExtra("overlay", 4);
         
         mPendingTermini = PendingIntent.getBroadcast(this, 1, intentTermini, PendingIntent.FLAG_CANCEL_CURRENT);
         mPendingPiazza = PendingIntent.getBroadcast(this, 2, intentPiazza, PendingIntent.FLAG_CANCEL_CURRENT);
@@ -127,14 +132,44 @@ public class RunnerActivity extends MapActivity {
 			boolean stoEntrando = arg1.getBooleanExtra(LocationManager.KEY_PROXIMITY_ENTERING, true);
 			if (stoEntrando)
 			{
-				Toast.makeText(getApplicationContext(), "Benvenuto", Toast.LENGTH_LONG).show();
+				if(area==1){
+					Toast.makeText(getApplicationContext(), "Benvenuto alla stazione Termini", Toast.LENGTH_LONG).show();
+					termini.setColor(Color.GREEN);
+				}
+				if(area==2){
+					Toast.makeText(getApplicationContext(), "Benvenuto in piazza della Repubblica", Toast.LENGTH_LONG).show();
+					piazza.setColor(Color.GREEN);
+				}
+				if(area==3){
+					Toast.makeText(getApplicationContext(), "Benvenuto al Colosseo", Toast.LENGTH_LONG).show();
+					colosseo.setColor(Color.GREEN);
+				}
+				if(area==4){
+					Toast.makeText(getApplicationContext(), "Benvenuto alla casa di Romolo e Remo", Toast.LENGTH_LONG).show();
+					romolo.setColor(Color.GREEN);
+				}
+					//arr[area].setColor(Color.GREEN);
 			}
 			else
 			{
 				Toast.makeText(getApplicationContext(), "Arrivederci", Toast.LENGTH_LONG).show();
+				//arr[area].setColor(Color.GRAY);
+				if(area==1){
+					termini.setColor(Color.GRAY);
+				}
+				if(area==2){
+					piazza.setColor(Color.GRAY);
+				}
+				if(area==3){
+					colosseo.setColor(Color.GRAY);
+				}
+				if(area==4){
+					romolo.setColor(Color.GRAY);
+				}
 			}
 			Log.d("TAG", "Proximity Alert");
 			//Toast.makeText(getApplicationContext(), "Alert di prossimità", Toast.LENGTH_LONG).show();
+			
 		}
 
 	}
