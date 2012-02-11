@@ -123,11 +123,16 @@ public class RunnerActivity extends MapActivity {
 		@Override
 		public void onReceive(Context arg0, Intent arg1) {
 			// TODO Auto-generated method stub
-			boolean stoEntrando = getIntent().getBooleanExtra(LocationManager.KEY_PROXIMITY_ENTERING, true);
+			int area = arg1.getIntExtra("overlay", -1);
+			boolean stoEntrando = arg1.getBooleanExtra(LocationManager.KEY_PROXIMITY_ENTERING, true);
 			if (stoEntrando)
+			{
 				Toast.makeText(getApplicationContext(), "Benvenuto", Toast.LENGTH_LONG).show();
+			}
 			else
+			{
 				Toast.makeText(getApplicationContext(), "Arrivederci", Toast.LENGTH_LONG).show();
+			}
 			Log.d("TAG", "Proximity Alert");
 			//Toast.makeText(getApplicationContext(), "Alert di prossimità", Toast.LENGTH_LONG).show();
 		}
