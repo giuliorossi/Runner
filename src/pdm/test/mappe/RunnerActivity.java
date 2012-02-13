@@ -168,7 +168,6 @@ public class RunnerActivity extends MapActivity {
 				}
 			}
 			Log.d("TAG", "Proximity Alert");
-			//Toast.makeText(getApplicationContext(), "Alert di prossimità", Toast.LENGTH_LONG).show();
 			
 		}
 
